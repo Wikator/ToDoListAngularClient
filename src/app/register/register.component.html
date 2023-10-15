@@ -1,0 +1,30 @@
+<form [formGroup]="registerForm" (ngSubmit)="registerForm.valid && register()">
+  <app-text-input
+    [formControl]="$any(registerForm.controls['email'])"
+    [label]="'Email'"
+    [type]="'email'"
+  ></app-text-input>
+  <app-text-input
+    [formControl]="$any(registerForm.controls['password'])"
+    [label]="'Password'"
+    [type]="'password'"
+  ></app-text-input>
+  <app-text-input
+    [formControl]="$any(registerForm.controls['confirmPassword'])"
+    [label]="'Confirm password'"
+    [type]="'password'"
+  ></app-text-input>
+
+  <div class="row" *ngIf="validationErrors">
+    {{validationErrors}}
+  </div>
+
+  <div class="text-center">
+    <button
+      [disabled]="!registerForm.valid"
+      class="btn btn-success me-2"
+      type="submit">
+      Register
+    </button>
+  </div>
+</form>

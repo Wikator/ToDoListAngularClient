@@ -1,0 +1,31 @@
+
+<div class="mb-2 mx-2 d-flex justify-content-between">
+  <div class="">
+    <h1>My Tasks</h1>
+  </div>
+  <div class="text-right">
+    <a class="btn btn-lg btn-primary" routerLink="/tasks/create">New Task</a>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered" style="width:100%">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks">
+        <td>{{task.name}}</td>
+        <td>{{task.description}}</td>
+        <td>{{task.category.name}}</td>
+        <td style="width:6%"><button class="btn btn-danger" (click)="delete(task.id)">Delete</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
