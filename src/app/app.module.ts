@@ -16,6 +16,9 @@ import { CreateTaskComponent } from './tasks/create-task/create-task.component';
 import { DropdownInputComponent } from './_forms/dropdown-input/dropdown-input.component';
 import { SnakeCaseInterceptor } from './_interceptors/snake-case.interceptor';
 import { MyTasksComponent } from './tasks/my-tasks/my-tasks.component';
+import { GroupListComponent } from './groups/group-list/group-list.component';
+import { AuthDirective } from './_directives/auth.directive';
+import { AdminDirective } from './_directives/admin.directive';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { MyTasksComponent } from './tasks/my-tasks/my-tasks.component';
     TextInputComponent,
     CreateTaskComponent,
     DropdownInputComponent,
-    MyTasksComponent
+    MyTasksComponent,
+    GroupListComponent,
+    AuthDirective,
+    AdminDirective
   ],
   imports: [
     BrowserModule,
