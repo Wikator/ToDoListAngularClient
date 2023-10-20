@@ -13,12 +13,17 @@
       <tr>
         <th>Id</th>
         <th>Name</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let group of groups">
         <td>{{group.id}}</td>
         <td>{{group.name}}</td>
+        <td style="width:6%">
+          <button class="btn btn-danger" (click)="delete(group.id)">Delete</button>
+          <button class="btn btn-info" routerLink="/groups/update/{{group.id}}">Update</button>
+        </td>
       </tr>
     </tbody>
   </table>

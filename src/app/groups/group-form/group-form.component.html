@@ -1,0 +1,15 @@
+<form [formGroup]="groupForm" (ngSubmit)="groupForm.valid && onButtonPress()">
+  <app-text-input
+    [label]="'Name'"
+    [formControl]="$any(groupForm.controls['name'])">
+  </app-text-input>
+
+  <div class="text-center">
+    <button
+      [disabled]="!groupForm.valid"
+      class="btn btn-success me-2"
+      type="submit">
+      {{buttonText}}
+    </button>
+  </div>
+</form>

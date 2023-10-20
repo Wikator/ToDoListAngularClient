@@ -1,26 +1,16 @@
-import {Component, inject, OnInit} from '@angular/core';
-import {GroupService} from "../../_services/group.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
 import {Group} from "../../_models/group";
+import {GroupEditor} from "../group-editor";
 
 @Component({
   selector: 'app-create-group',
   templateUrl: './create-group.component.html',
   styleUrls: ['./create-group.component.css']
 })
-export class CreateGroupComponent implements OnInit{
-
-  private groupsService = inject(GroupService);
-  private fb = inject(FormBuilder);
-  private router = inject(Router)
-
-  groupForm: FormGroup = new FormGroup({});
+export class CreateGroupComponent extends GroupEditor implements OnInit{
 
   ngOnInit() {
-    this.groupForm = this.fb.group({
-      name: ['', Validators.required]
-    });
+    this.initializeForm();
   }
 
   submit(group: Group) {

@@ -15,7 +15,7 @@ export class GroupService {
   }
 
   getGroup(id: string) {
-    return this.http.get<Group>(`${this.baseUrl}/${id}`);
+    return this.http.get<Group>(`${this.baseUrl}${id}`);
   }
 
   createGroup(group: Group) {
@@ -24,5 +24,9 @@ export class GroupService {
 
   updateGroup(group: Group) {
     return this.http.put(this.baseUrl + group.id, group);
+  }
+
+  deleteGroup(id: string | number) {
+    return this.http.delete(this.baseUrl + id)
   }
 }

@@ -10,16 +10,18 @@ import { GroupListComponent } from './groups/group-list/group-list.component';
 import { adminGuard } from './_guards/admin.guard';
 import {CreateGroupComponent} from "./groups/create-group/create-group.component";
 import {UpdateGroupComponent} from "./groups/update-group/update-group.component";
+import {UpdateTaskComponent} from "./tasks/update-task/update-task.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'tasks/create', component: CreateTaskComponent, canActivate: [authGuard] },
+  { path: 'tasks/update/:id', component: UpdateTaskComponent, canActivate: [authGuard] },
   { path: 'tasks/my-tasks', component: MyTasksComponent, canActivate: [authGuard] },
   { path: 'groups', component: GroupListComponent, canActivate: [adminGuard] },
   { path: 'groups/create', component: CreateGroupComponent, canActivate: [adminGuard] },
-  { path: 'groups/:id', component: UpdateGroupComponent, canActivate: [adminGuard] }
+  { path: 'groups/update/:id', component: UpdateGroupComponent, canActivate: [adminGuard] }
 ];
 
 @NgModule({

@@ -8,15 +8,21 @@ import { GroupService } from 'src/app/_services/group.service';
   styleUrls: ['./group-list.component.css']
 })
 export class GroupListComponent implements OnInit {
-  private groupServce = inject(GroupService);
+  private groupService: GroupService = inject(GroupService);
 
   groups: Group[] = [];
 
   ngOnInit(): void {
-    this.groupServce.getGroups().subscribe({
+    this.groupService.getGroups().subscribe({
       next: groups => this.groups = groups,
       error: err => console.log(err)
     });
   }
 
+  delete(id: number) {
+    this.groupService.deleteGroup(id).subscribe({
+      next: () => this.groups = this.groups.filter((group) => group.id !== id),
+      error: (err) => console.log(err)
+    });
+  }
 }

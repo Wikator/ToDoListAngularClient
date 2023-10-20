@@ -23,7 +23,10 @@
         <td>{{task.name}}</td>
         <td>{{task.description}}</td>
         <td>{{task.category.name}}</td>
-        <td style="width:6%"><button class="btn btn-danger" (click)="delete(task.id)">Delete</button></td>
+        <td style="width:6%">
+          <button class="btn btn-danger" (click)="delete(task.id)">Delete</button>
+          <button class="btn btn-info" routerLink="/tasks/update/{{task.id}}">Update</button>
+        </td>
       </tr>
     </tbody>
   </table>

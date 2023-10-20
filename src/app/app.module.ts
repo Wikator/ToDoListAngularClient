@@ -22,6 +22,8 @@ import { AdminDirective } from './_directives/admin.directive';
 import { CreateGroupComponent } from './groups/create-group/create-group.component';
 import { GroupFormComponent } from './groups/group-form/group-form.component';
 import { UpdateGroupComponent } from './groups/update-group/update-group.component';
+import { TaskFormComponent } from './tasks/task-form/task-form.component';
+import { UpdateTaskComponent } from './tasks/update-task/update-task.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { UpdateGroupComponent } from './groups/update-group/update-group.compone
     AdminDirective,
     CreateGroupComponent,
     GroupFormComponent,
-    UpdateGroupComponent
+    UpdateGroupComponent,
+    TaskFormComponent,
+    UpdateTaskComponent
   ],
   imports: [
     BrowserModule,

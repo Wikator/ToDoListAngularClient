@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Task } from '../_models/task';
-import { TaskDetails } from '../_models/task-details';
+import {TaskDetails} from "../_models/task-details";
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +19,12 @@ export class TaskService {
     return this.http.get<TaskDetails[]>(this.baseUrl + 'my_tasks');
   }
 
+  updateTask(task: Task) {
+    return this.http.put(this.baseUrl + 'tasks/' + task.id, task);
+  }
+
   getTask(id: string) {
-    return this.http.get<TaskDetails>(this.baseUrl + 'tasks/' + id);
+    return this.http.get<Task>(this.baseUrl + 'tasks/' + id);
   }
 
   deleteTask(id: number) {

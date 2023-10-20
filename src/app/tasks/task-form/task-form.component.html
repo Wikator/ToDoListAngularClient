@@ -1,0 +1,28 @@
+<form [formGroup]="taskForm" (ngSubmit)="taskForm.valid && onButtonPress()" *ngIf="categoryOptions !== []">
+  <app-text-input
+    [formControl]="$any(taskForm.controls['name'])"
+    [label]="'Name'"
+    [type]="'text'">
+  </app-text-input>
+  <app-text-input
+    [formControl]="$any(taskForm.controls['description'])"
+    [label]="'Description'"
+    [type]="'text'">
+  </app-text-input>
+  <app-dropdown-input
+    [formControl]="$any(taskForm.controls['categoryId'])"
+    [label]="'Category'"
+    [options]="categoryOptions"
+    (valueChanged)="onCategoryChange($event)">
+
+  </app-dropdown-input>
+
+  <div class="text-center">
+    <button
+      [disabled]="!taskForm.valid"
+      class="btn btn-success me-2"
+      type="submit">
+      {{buttonText}}
+    </button>
+  </div>
+</form>
