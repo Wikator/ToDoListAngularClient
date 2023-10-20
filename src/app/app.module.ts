@@ -19,6 +19,7 @@ import { MyTasksComponent } from './tasks/my-tasks/my-tasks.component';
 import { GroupListComponent } from './groups/group-list/group-list.component';
 import { AuthDirective } from './_directives/auth.directive';
 import { AdminDirective } from './_directives/admin.directive';
+import { CreateGroupComponent } from './groups/create-group/create-group.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AdminDirective } from './_directives/admin.directive';
     MyTasksComponent,
     GroupListComponent,
     AuthDirective,
-    AdminDirective
+    AdminDirective,
+    CreateGroupComponent
   ],
   imports: [
     BrowserModule,

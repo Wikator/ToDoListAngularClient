@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class GroupsService {
   private http = inject(HttpClient);
 
-  private baseUrl = 'http://localhost:3000/groups';
+  private baseUrl = 'http://localhost:3000/groups/';
 
   getGroups(): Observable<Group[]> {
     return this.http.get<Group[]>(this.baseUrl);
@@ -17,5 +17,9 @@ export class GroupsService {
 
   getGroup(id: string): Observable<Group> {
     return this.http.get<Group>(`${this.baseUrl}/${id}`);
+  }
+
+  createGroup(group: Group): Observable<Group> {
+    return this.http.post<Group>(this.baseUrl, group);
   }
 }

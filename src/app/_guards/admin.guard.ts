@@ -8,8 +8,7 @@ export const adminGuard: CanActivateFn = () => {
 
   return accountService.currentUser$.pipe(
     map(user => {
-      if (!user || user.role !== 'admin') return false
-      else return true;
+      return !(!user || user.role !== 'admin');
     })
   )
 };
