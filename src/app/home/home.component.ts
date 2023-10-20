@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { GroupsService } from '../_services/groups.service';
+import { GroupService } from '../_services/group.service';
 import { Group } from '../_models/group';
 
 @Component({
@@ -8,12 +8,12 @@ import { Group } from '../_models/group';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  private groupsService = inject(GroupsService);
+  private groupService = inject(GroupService);
 
   groups: Group[] = [];
 
   ngOnInit(): void {
-    this.groupsService.getGroups().subscribe({
+    this.groupService.getGroups().subscribe({
       next: (groups: Group[]) => (this.groups = groups)
     });
   }

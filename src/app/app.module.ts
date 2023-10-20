@@ -20,6 +20,8 @@ import { GroupListComponent } from './groups/group-list/group-list.component';
 import { AuthDirective } from './_directives/auth.directive';
 import { AdminDirective } from './_directives/admin.directive';
 import { CreateGroupComponent } from './groups/create-group/create-group.component';
+import { GroupFormComponent } from './groups/group-form/group-form.component';
+import { UpdateGroupComponent } from './groups/update-group/update-group.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { CreateGroupComponent } from './groups/create-group/create-group.compone
     GroupListComponent,
     AuthDirective,
     AdminDirective,
-    CreateGroupComponent
+    CreateGroupComponent,
+    GroupFormComponent,
+    UpdateGroupComponent
   ],
   imports: [
     BrowserModule,

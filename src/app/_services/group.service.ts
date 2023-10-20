@@ -6,7 +6,7 @@ import { Group } from '../_models/group';
   providedIn: 'root'
 })
 export class GroupService {
-  private baseUrl = 'http://localhost:3000/groups';
+  private baseUrl = 'http://localhost:3000/groups/';
 
   private http = inject(HttpClient);
 
@@ -20,5 +20,9 @@ export class GroupService {
 
   createGroup(group: Group) {
     return this.http.post<Group>(this.baseUrl, group);
+  }
+
+  updateGroup(group: Group) {
+    return this.http.put(this.baseUrl + group.id, group);
   }
 }

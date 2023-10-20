@@ -1,15 +1,1 @@
-<form [formGroup]="groupForm" (ngSubmit)="groupForm.valid && submit()">
-  <app-text-input
-    [label]="'Name'"
-    [formControl]="$any(groupForm.controls['name'])">
-  </app-text-input>
-
-  <div class="text-center">
-    <button
-      [disabled]="!groupForm.valid"
-      class="btn btn-success me-2"
-      type="submit">
-      Create
-    </button>
-  </div>
-</form>
+<app-group-form [groupForm]="groupForm" [buttonText]="'Create'" (onSubmit)="submit($event)"></app-group-form>

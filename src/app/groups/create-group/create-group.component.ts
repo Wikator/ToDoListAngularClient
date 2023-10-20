@@ -1,7 +1,8 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {GroupsService} from "../../_services/groups.service";
+import {GroupService} from "../../_services/group.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
+import {Group} from "../../_models/group";
 
 @Component({
   selector: 'app-create-group',
@@ -10,7 +11,7 @@ import {Router} from "@angular/router";
 })
 export class CreateGroupComponent implements OnInit{
 
-  private groupsService = inject(GroupsService);
+  private groupsService = inject(GroupService);
   private fb = inject(FormBuilder);
   private router = inject(Router)
 
@@ -22,11 +23,11 @@ export class CreateGroupComponent implements OnInit{
     });
   }
 
-  submit() {
-    const group = this.groupForm.value;
+  submit(group: Group) {
+    console.log(group)
     this.groupsService.createGroup(group).subscribe({
       next: () => this.router.navigateByUrl('/groups'),
-      error: (error) => console.error(error())
+      error: (error) => console.error(error)
     });
   }
 }
