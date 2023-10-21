@@ -24,6 +24,8 @@ import { GroupFormComponent } from './groups/group-form/group-form.component';
 import { UpdateGroupComponent } from './groups/update-group/update-group.component';
 import { TaskFormComponent } from './tasks/task-form/task-form.component';
 import { UpdateTaskComponent } from './tasks/update-task/update-task.component';
+import {NgxSpinnerModule} from "ngx-spinner";
+import {LoadingInterceptor} from "./_interceptors/loading.interceptor";
 
 @NgModule({
   declarations: [
@@ -51,9 +53,11 @@ import { UpdateTaskComponent } from './tasks/update-task/update-task.component';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: SnakeCaseInterceptor, multi: true }
   ],

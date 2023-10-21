@@ -24,7 +24,7 @@ export class TaskService {
   }
 
   getTask(id: string) {
-    return this.http.get<Task>(this.baseUrl + 'tasks/' + id);
+    return this.http.get<TaskDetails>(this.baseUrl + 'tasks/' + id);
   }
 
   deleteTask(id: number) {

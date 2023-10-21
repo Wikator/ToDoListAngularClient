@@ -2,6 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {TaskEditor} from "../task-editor";
 import {Task} from "../../_models/task";
 import {ActivatedRoute} from "@angular/router";
+import {TaskDetails} from "../../_models/task-details";
 
 @Component({
   selector: 'app-update-task',
@@ -25,24 +26,14 @@ export class UpdateTaskComponent extends TaskEditor implements OnInit {
           this.router.navigateByUrl('/groups')
         } else {
           this.taskService.getTask(id).subscribe({
-            next: (task: Task) => {
-              this.taskForm.get('id')?.setValue(task.id, {
-                self: true
-              });
-              this.taskForm.get('name')?.setValue(task.name, {
-                self: true
-              });
-              this.taskForm.get('description')?.setValue(task.description, {
-                self: true
-              });
-              this.taskForm.get('deadline')?.setValue(task.deadline, {
-                self: true
-              });
-              this.taskForm.get('categoryId')?.setValue(task.categoryId, {
-                self: true
-              });
-              this.taskForm.get('groupId')?.setValue(task.groupId, {
-                self: true
+            next: (task: TaskDetails) => {
+              this.taskForm.patchValue({
+                id: task.id,
+                name: task.name,
+                description: task.description,
+                deadline: task.deadline,
+                categoryId: task.category.id,
+                groupId: task.group?.id,
               });
             }
           })
