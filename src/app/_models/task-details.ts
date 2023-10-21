@@ -1,5 +1,6 @@
 import { Category } from "./category";
 import { Group } from "./group";
+import {Subject} from "./subject";
 
 export interface TaskDetails {
   id: number;
@@ -7,5 +8,6 @@ export interface TaskDetails {
   description: string | null;
   deadline: Date | null;
   category: Category;
+  subject: Subject | null;
   group: Group | null;
 }

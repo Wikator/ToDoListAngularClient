@@ -31,6 +31,10 @@ import { CategoryFormComponent } from './categories/category-form/category-form.
 import { SubmitButtonComponent } from './_forms/submit-button/submit-button.component';
 import { CreateCategoryComponent } from './categories/create-category/create-category.component';
 import { UpdateCategoryComponent } from './categories/update-category/update-category.component';
+import { SubjectListComponent } from './subjects/subject-list/subject-list.component';
+import { SubjectFormComponent } from './subjects/subject-form/subject-form.component';
+import { CreateSubjectComponent } from './subjects/create-subject/create-subject.component';
+import { UpdateSubjectComponent } from './subjects/update-subject/update-subject.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +59,11 @@ import { UpdateCategoryComponent } from './categories/update-category/update-cat
     CategoryFormComponent,
     SubmitButtonComponent,
     CreateCategoryComponent,
-    UpdateCategoryComponent
+    UpdateCategoryComponent,
+    SubjectListComponent,
+    SubjectFormComponent,
+    CreateSubjectComponent,
+    UpdateSubjectComponent
   ],
   imports: [
     BrowserModule,

@@ -17,6 +17,9 @@
       <li class="nav-item">
         <a *appAdmin class="nav-link" routerLink="/categories">Categories</a>
       </li>
+      <li class="nav-item">
+        <a *appAdmin class="nav-link" routerLink="/subjects">Subjects</a>
+      </li>
     </ul>
     <ul class="navbar-nav">
       <ng-container *ngIf="accountService.currentUser$ | async as user">

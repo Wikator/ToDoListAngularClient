@@ -8,6 +8,7 @@ import {Category} from "../../_models/category";
 import {Group} from "../../_models/group";
 import {TaskDetails} from "../../_models/task-details";
 import {group} from "@angular/animations";
+import {Subject} from "../../_models/subject";
 
 @Component({
   selector: 'app-task-form',
@@ -26,6 +27,7 @@ export class TaskFormComponent implements OnInit {
 
   categoryOptions: Option[] = [];
   groupOptions: Option[] = [];
+  subjectOptions: Option[] = [];
 
   ngOnInit() {
     this.initializeForm();
@@ -40,6 +42,7 @@ export class TaskFormComponent implements OnInit {
         description: [this.initialFormData.description],
         deadline: [this.initialFormData.deadline],
         categoryId: [this.initialFormData.category.id, Validators.required],
+        subjectId: [this.initialFormData.subject?.id],
         groupId: [this.initialFormData.group?.id]
       })
     } else {
@@ -49,6 +52,7 @@ export class TaskFormComponent implements OnInit {
         description: [null as string | null],
         deadline: [null as Date | null],
         categoryId: [null as number | null, Validators.required],
+        subjectId: [null as number | null],
         groupId: [null as number | null]
       })
     }
@@ -67,6 +71,12 @@ export class TaskFormComponent implements OnInit {
           return {
             name: group.name,
             value: group.id
+          }
+        });
+        this.subjectOptions = obj.subjects.map((subject: Subject) => {
+          return {
+            name: subject.name,
+            value: subject.id
           }
         })
       },
@@ -93,12 +103,22 @@ export class TaskFormComponent implements OnInit {
     });
   }
 
+  onSubjectChange(e: number) {
+    this.subjectId?.setValue(e, {
+      onlySelf: true,
+    });
+  }
+
   get categoryId() {
     return this.taskForm.get('categoryId');
   }
 
   get groupId() {
     return this.taskForm.get('groupId');
+  }
+
+  get subjectId() {
+    return this.taskForm.get('subjectId');
   }
 
 }

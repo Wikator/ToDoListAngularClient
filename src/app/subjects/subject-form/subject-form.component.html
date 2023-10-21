@@ -1,0 +1,11 @@
+<form [formGroup]="subjectForm" (ngSubmit)="subjectForm.valid && onButtonPress()">
+  <app-text-input
+    [label]="'Name'"
+    [formControl]="$any(subjectForm.controls['name'])"
+  ></app-text-input>
+
+  <app-submit-button
+    [formGroupValid]="subjectForm.valid"
+    [buttonText]="buttonText"
+  ></app-submit-button>
+</form>

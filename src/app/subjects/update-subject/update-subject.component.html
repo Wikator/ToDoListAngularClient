@@ -1,0 +1,12 @@
+<div class="mb-2 mx-2 d-flex justify-content-between">
+  <div class="">
+    <h1>Update Subject</h1>
+  </div>
+</div>
+
+<app-subject-form
+  *ngIf="initialSubjectData"
+  [buttonText]="'Update'"
+  [initialFormData]="initialSubjectData"
+  (onSubmit)="update($event)"
+></app-subject-form>

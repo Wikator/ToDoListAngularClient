@@ -14,6 +14,9 @@ import {UpdateTaskComponent} from "./tasks/update-task/update-task.component";
 import {CategoryListComponent} from "./categories/category-list/category-list.component";
 import {CreateCategoryComponent} from "./categories/create-category/create-category.component";
 import {UpdateCategoryComponent} from "./categories/update-category/update-category.component";
+import {SubjectListComponent} from "./subjects/subject-list/subject-list.component";
+import {CreateSubjectComponent} from "./subjects/create-subject/create-subject.component";
+import {UpdateSubjectComponent} from "./subjects/update-subject/update-subject.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,7 +30,10 @@ const routes: Routes = [
   { path: 'groups/update/:id', component: UpdateGroupComponent, canActivate: [adminGuard] },
   { path: 'categories', component: CategoryListComponent, canActivate: [adminGuard] },
   { path: 'categories/create', component: CreateCategoryComponent, canActivate: [adminGuard] },
-  { path: 'categories/update/:id', component: UpdateCategoryComponent, canActivate: [adminGuard] }
+  { path: 'categories/update/:id', component: UpdateCategoryComponent, canActivate: [adminGuard] },
+  { path: 'subjects', component: SubjectListComponent, canActivate: [adminGuard] },
+  { path: 'subjects/create', component: CreateSubjectComponent, canActivate: [adminGuard] },
+  { path: 'subjects/update/:id', component: UpdateSubjectComponent, canActivate: [adminGuard] }
 ];
 
 @NgModule({

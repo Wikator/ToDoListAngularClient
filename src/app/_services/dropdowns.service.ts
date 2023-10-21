@@ -4,6 +4,7 @@ import { Group } from '../_models/group';
 import { Category } from '../_models/category';
 import {environment} from "../../environment/environment";
 import {Observable} from "rxjs";
+import {Subject} from "../_models/subject";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class DropdownsService {
 
   private baseUrl: string = environment.baseApiUrl + 'dropdowns/';
 
-  getTaskDropdowns(): Observable<{ groups: Group[], categories: Category[] }> {
-    return this.http.get<{ groups: Group[], categories: Category[] }>(this.baseUrl + '/tasks');
+  getTaskDropdowns(): Observable<{ groups: Group[], categories: Category[], subjects: Subject[] }> {
+    return this.http.get<{ groups: Group[], categories: Category[], subjects: Subject[] }>(this.baseUrl + '/tasks');
   }
 }

@@ -1,0 +1,31 @@
+<div class="mb-2 mx-2 d-flex justify-content-between">
+  <div class="">
+    <h1>Subjects</h1>
+  </div>
+  <div class="text-right">
+    <a class="btn btn-lg btn-primary" routerLink="/subjects/create">New Subject</a>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered" style="width:100%">
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let subject of subjects">
+      <td>{{subject.id}}</td>
+      <td>{{subject.name}}</td>
+      <td style="width:6%">
+        <button class="btn btn-danger" (click)="delete(subject.id)">Delete</button>
+        <button class="btn btn-info" routerLink="/subjects/update/{{subject.id}}">Update</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
