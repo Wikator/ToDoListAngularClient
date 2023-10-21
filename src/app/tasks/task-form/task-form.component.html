@@ -24,12 +24,8 @@
 
   </app-dropdown-input>
 
-  <div class="text-center">
-    <button
-      [disabled]="!taskForm.valid"
-      class="btn btn-success me-2"
-      type="submit">
-      {{buttonText}}
-    </button>
-  </div>
+  <app-submit-button
+    [formGroupValid]="taskForm.valid"
+    [buttonText]="buttonText"
+  ></app-submit-button>
 </form>

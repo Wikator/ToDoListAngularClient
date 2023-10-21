@@ -1,32 +1,33 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { Login } from '../_models/login';
 import { map } from 'rxjs/operators';
 import { Register } from '../_models/register';
+import { environment } from "../../environment/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  private http = inject(HttpClient)
+  private http:HttpClient = inject(HttpClient)
 
-  private baseUrl = 'http://localhost:3000/users';
-  private currentUserSource = new BehaviorSubject<User | null>(null);
-  currentUser$ = this.currentUserSource.asObservable();
+  private baseUrl:string = environment.baseApiUrl + 'users/';
+  private currentUserSource: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+  currentUser$: Observable<User | any> = this.currentUserSource.asObservable();
 
-  sign_in(login: Login) {
+  sign_in(login: Login): Observable<User | any> {
     return this.http.post<User>(`${this.baseUrl}/sign_in`, { "user": login }, { observe: 'response' }).pipe(
       map(response => {
-        const user = this.getUser(response);
+        const user: User | null = this.getUser(response);
         if (user) this.setCurrentUser(user);
         return user;
       })
     );
   }
 
-  register(register: Register) {
+  register(register: Register): Observable<User | null> {
     return this.http.post<User>(this.baseUrl, { "user": register }, { observe: 'response' }).pipe(
       map(response => {
         const user = this.getUser(response);
@@ -36,7 +37,7 @@ export class AccountService {
     );
   }
 
-  log_out() {
+  log_out(): Observable<Object> {
     return this.http.delete(`${this.baseUrl}/sign_out`).pipe(
       map(response => {
         console.log('log_out');
@@ -58,7 +59,7 @@ export class AccountService {
     return user;
   }
 
-  setCurrentUser(user: User) {
+  setCurrentUser(user: User): void {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
   }

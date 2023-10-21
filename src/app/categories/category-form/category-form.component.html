@@ -1,0 +1,11 @@
+<form [formGroup]="categoryForm" (ngSubmit)="categoryForm.valid && onButtonPress()">
+  <app-text-input
+    [formControl]="$any(categoryForm.controls['name'])"
+    [label]="'Name'"
+  ></app-text-input>
+
+  <app-submit-button
+    [formGroupValid]="categoryForm.valid"
+    [buttonText]="buttonText">
+  </app-submit-button>
+</form>

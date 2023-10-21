@@ -4,12 +4,8 @@
     [formControl]="$any(groupForm.controls['name'])">
   </app-text-input>
 
-  <div class="text-center">
-    <button
-      [disabled]="!groupForm.valid"
-      class="btn btn-success me-2"
-      type="submit">
-      {{buttonText}}
-    </button>
-  </div>
+  <app-submit-button
+    [formGroupValid]="groupForm.valid"
+    [buttonText]="buttonText"
+  ></app-submit-button>
 </form>

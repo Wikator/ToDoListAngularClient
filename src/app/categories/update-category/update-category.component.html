@@ -1,0 +1,6 @@
+<app-category-form
+  *ngIf="initialCategoryData"
+  [buttonText]="'Update'"
+  [initialFormData]="initialCategoryData"
+  (onSubmit)="update($event)">
+</app-category-form>

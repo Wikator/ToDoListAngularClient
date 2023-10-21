@@ -8,12 +8,12 @@ export class BusyService {
   private busyRequestCount: number = 0;
   private spinnerService: NgxSpinnerService = inject(NgxSpinnerService);
 
-  busy() {
+  busy(): void {
     this.busyRequestCount++;
     this.spinnerService.show();
   }
 
-  idle() {
+  idle(): void {
     this.busyRequestCount--;
 
     if (this.busyRequestCount <= 0) {

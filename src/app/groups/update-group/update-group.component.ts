@@ -17,14 +17,12 @@ export class UpdateGroupComponent implements OnInit{
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
-        const id: string | null = params.get('id')
+        const id: string | null = params.get('id');
         if (id === null) {
-          this.router.navigateByUrl('/groups')
+          this.router.navigateByUrl('/groups');
         } else {
           this.groupService.getGroup(id).subscribe({
-            next: (group) => {
-              this.initialGroupData = group;
-            }
+            next: (group: Group) => this.initialGroupData = group
           });
         }
       }

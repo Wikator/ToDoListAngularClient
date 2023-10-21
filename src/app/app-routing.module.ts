@@ -11,6 +11,9 @@ import { adminGuard } from './_guards/admin.guard';
 import {CreateGroupComponent} from "./groups/create-group/create-group.component";
 import {UpdateGroupComponent} from "./groups/update-group/update-group.component";
 import {UpdateTaskComponent} from "./tasks/update-task/update-task.component";
+import {CategoryListComponent} from "./categories/category-list/category-list.component";
+import {CreateCategoryComponent} from "./categories/create-category/create-category.component";
+import {UpdateCategoryComponent} from "./categories/update-category/update-category.component";
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,7 +24,10 @@ const routes: Routes = [
   { path: 'tasks/my-tasks', component: MyTasksComponent, canActivate: [authGuard] },
   { path: 'groups', component: GroupListComponent, canActivate: [adminGuard] },
   { path: 'groups/create', component: CreateGroupComponent, canActivate: [adminGuard] },
-  { path: 'groups/update/:id', component: UpdateGroupComponent, canActivate: [adminGuard] }
+  { path: 'groups/update/:id', component: UpdateGroupComponent, canActivate: [adminGuard] },
+  { path: 'categories', component: CategoryListComponent, canActivate: [adminGuard] },
+  { path: 'categories/create', component: CreateCategoryComponent, canActivate: [adminGuard] },
+  { path: 'categories/update/:id', component: UpdateCategoryComponent, canActivate: [adminGuard] }
 ];
 
 @NgModule({

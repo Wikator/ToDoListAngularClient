@@ -26,6 +26,11 @@ import { TaskFormComponent } from './tasks/task-form/task-form.component';
 import { UpdateTaskComponent } from './tasks/update-task/update-task.component';
 import {NgxSpinnerModule} from "ngx-spinner";
 import {LoadingInterceptor} from "./_interceptors/loading.interceptor";
+import { CategoryListComponent } from './categories/category-list/category-list.component';
+import { CategoryFormComponent } from './categories/category-form/category-form.component';
+import { SubmitButtonComponent } from './_forms/submit-button/submit-button.component';
+import { CreateCategoryComponent } from './categories/create-category/create-category.component';
+import { UpdateCategoryComponent } from './categories/update-category/update-category.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +50,12 @@ import {LoadingInterceptor} from "./_interceptors/loading.interceptor";
     GroupFormComponent,
     UpdateGroupComponent,
     TaskFormComponent,
-    UpdateTaskComponent
+    UpdateTaskComponent,
+    CategoryListComponent,
+    CategoryFormComponent,
+    SubmitButtonComponent,
+    CreateCategoryComponent,
+    UpdateCategoryComponent
   ],
   imports: [
     BrowserModule,
