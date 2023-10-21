@@ -16,6 +16,13 @@
     (valueChanged)="onCategoryChange($event)">
 
   </app-dropdown-input>
+  <app-dropdown-input
+    [formControl]="$any(taskForm.controls['groupId'])"
+    [label]="'Group'"
+    [options]="groupOptions"
+    (valueChanged)="onGroupChange($event)">
+
+  </app-dropdown-input>
 
   <div class="text-center">
     <button

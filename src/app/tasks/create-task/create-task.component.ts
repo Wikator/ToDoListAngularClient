@@ -1,18 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import { Task } from 'src/app/_models/task';
-import {TaskEditor} from "../task-editor";
+import {TaskService} from "../../_services/task.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-task',
   templateUrl: './create-task.component.html',
   styleUrls: ['./create-task.component.css']
 })
-export class CreateTaskComponent extends TaskEditor implements OnInit{
+export class CreateTaskComponent {
 
-  ngOnInit() {
-    this.initializeForm();
-    this.getData();
-  }
+  private taskService: TaskService = inject(TaskService);
+  private router: Router = inject(Router);
 
   create(task: Task) {
     this.taskService.createTask(task).subscribe({

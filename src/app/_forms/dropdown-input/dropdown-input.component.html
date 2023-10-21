@@ -5,9 +5,15 @@
           [formControl]="control"
           (change)="onValueChange()"
           id="formGroup{{label}}">
-
+    <option [ngValue]="null" selected>
+      None
+    </option>
     <option *ngFor="let option of options" [ngValue]="option.value">
       {{ option.name }}
     </option>
   </select>
+
+  <div class="invalid-feedback" *ngIf="control.errors?.['required']">
+    Please enter a {{ label }}
+  </div>
 </div>

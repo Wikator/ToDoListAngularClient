@@ -1,1 +1,5 @@
-<app-task-form [taskForm]="taskForm" [buttonText]="'Update'" [categoryOptions]="categoryOptions" (onSubmit)="update($event)"></app-task-form>
+<app-task-form
+  *ngIf="initialTaskData"
+  [buttonText]="'Update'"
+  [initialFormData]="initialTaskData"
+  (onSubmit)="update($event)"></app-task-form>

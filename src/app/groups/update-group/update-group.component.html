@@ -1,1 +1,6 @@
-<app-group-form [groupForm]="groupForm" [buttonText]="'Update'" (onSubmit)="submit($event)"></app-group-form>
+<app-group-form
+  *ngIf="initialGroupData"
+  [initialFormData]="initialGroupData"
+  [buttonText]="'Update'"
+  (onSubmit)="submit($event)">
+</app-group-form>
