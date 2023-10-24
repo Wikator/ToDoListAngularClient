@@ -22,7 +22,7 @@ export class SnakeCaseInterceptor implements HttpInterceptor {
     const snakeCaseObj: any = {};
     for (const key in obj) {
       if (obj.hasOwnProperty(key)) {
-        const snakeCaseKey = key.replace(/([A-Z])/g, '_$1').toLowerCase();
+        const snakeCaseKey: string = key.replace(/([A-Z])/g, '_$1').toLowerCase();
         snakeCaseObj[snakeCaseKey] = obj[key];
       }
     }

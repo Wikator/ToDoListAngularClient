@@ -6,6 +6,6 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./submit-button.component.css']
 })
 export class SubmitButtonComponent {
-  @Input() formGroupValid: boolean = true;
-  @Input() buttonText: string = '';
+  @Input() formGroupValid = true;
+  @Input() buttonText = '';
 }

@@ -1,14 +1,14 @@
 import { Directive, OnInit, TemplateRef, ViewContainerRef, inject } from '@angular/core';
-import { AccountService } from '../_services/account.service';
+import { AccountService } from '../core/services/account.service';
 
 @Directive({
   selector: '[appAdmin]'
 })
 export class AdminDirective implements OnInit {
 
-  private viewContainerRef = inject(ViewContainerRef);
-  private templateRef = inject(TemplateRef<any>);
-  private accountService = inject(AccountService);
+  private viewContainerRef: ViewContainerRef = inject(ViewContainerRef);
+  private templateRef: TemplateRef<any> = inject(TemplateRef<any>);
+  private accountService: AccountService = inject(AccountService);
 
   ngOnInit(): void {
     this.accountService.currentUser$.subscribe({

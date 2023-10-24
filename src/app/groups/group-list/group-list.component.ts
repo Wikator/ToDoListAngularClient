@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Group } from 'src/app/_models/group';
-import { GroupService } from 'src/app/_services/group.service';
+import { Group } from 'src/app/core/models/group';
+import { GroupService } from 'src/app/core/services/group.service';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-group-list',
@@ -9,20 +10,21 @@ import { GroupService } from 'src/app/_services/group.service';
 })
 export class GroupListComponent implements OnInit {
   private groupService: GroupService = inject(GroupService);
+  private toastr: ToastrService = inject(ToastrService);
 
   groups: Group[] = [];
 
   ngOnInit(): void {
     this.groupService.getGroups().subscribe({
-      next: groups => this.groups = groups,
-      error: err => console.log(err)
+      next: (groups: Group[]) => this.groups = groups,
+      error: (err) => this.toastr.error(err.errors)
     });
   }
 
-  delete(id: number) {
+  delete(id: number): void {
     this.groupService.deleteGroup(id).subscribe({
       next: () => this.groups = this.groups.filter((group) => group.id !== id),
-      error: (err) => console.log(err)
+      error: (err) => this.toastr.error(err.statusText)
     });
   }
 }

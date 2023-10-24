@@ -1,5 +1,5 @@
 import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
-import {Category} from "../../_models/category";
+import {Category} from "../../core/models/category";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -8,7 +8,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./category-form.component.css']
 })
 export class CategoryFormComponent implements OnInit{
-  @Input({required: true}) buttonText: string = '';
+  @Input({required: true}) buttonText = '';
   @Input() initialFormData: Category | null = null;
   @Output() onSubmit: EventEmitter<Category> = new EventEmitter<Category>();
 
@@ -20,7 +20,7 @@ export class CategoryFormComponent implements OnInit{
     this.initializeForm()
   }
 
-  private initializeForm() {
+  private initializeForm(): void {
     if (this.initialFormData) {
       this.categoryForm = this.fb.group({
         id: [this.initialFormData.id],

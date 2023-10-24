@@ -1,8 +1,8 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {SubjectService} from "../../_services/subject.service";
+import {SubjectService} from "../../core/services/subject.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Subject} from "../../_models/subject";
-import {Group} from "../../_models/group";
+import {Subject} from "../../core/models/subject";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-update-subject',
@@ -13,6 +13,7 @@ export class UpdateSubjectComponent implements OnInit {
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private subjectService: SubjectService = inject(SubjectService);
   private router: Router = inject(Router);
+  private toastr: ToastrService = inject(ToastrService);
 
   initialSubjectData: Subject | null = null;
 
@@ -34,7 +35,7 @@ export class UpdateSubjectComponent implements OnInit {
   update(subject: Subject): void {
     this.subjectService.update(subject).subscribe({
       next: () => this.router.navigateByUrl('/subjects'),
-      error: (err) => console.log(err)
+      error: (err) => this.toastr.error(err.statusText)
     });
   }
 }

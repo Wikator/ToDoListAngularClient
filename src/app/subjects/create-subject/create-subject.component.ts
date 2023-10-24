@@ -1,7 +1,8 @@
 import {Component, inject} from '@angular/core';
-import {SubjectService} from "../../_services/subject.service";
+import {SubjectService} from "../../core/services/subject.service";
 import {Router} from "@angular/router";
-import {Subject} from "../../_models/subject";
+import {Subject} from "../../core/models/subject";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-create-subject',
@@ -11,11 +12,12 @@ import {Subject} from "../../_models/subject";
 export class CreateSubjectComponent {
   private subjectService: SubjectService = inject(SubjectService);
   private router: Router = inject(Router);
+  private toastr: ToastrService = inject(ToastrService)
 
   create(subject: Subject): void {
     this.subjectService.create(subject).subscribe({
       next: () => this.router.navigateByUrl('/subjects'),
-      error: (err) => console.log(err)
+      error: (err) => this.toastr.error(err.statusText)
     });
   }
 }

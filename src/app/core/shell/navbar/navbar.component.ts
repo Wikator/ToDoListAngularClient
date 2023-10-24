@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { AccountService } from '../_services/account.service';
+import { AccountService } from '../../services/account.service';
 import { Router } from '@angular/router';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-navbar',
@@ -9,13 +10,15 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
 
-  accountService = inject(AccountService);
-  router = inject(Router);
+  accountService: AccountService = inject(AccountService);
 
-  log_out() {
+  private router: Router = inject(Router);
+  private toastr: ToastrService = inject(ToastrService);
+
+  log_out(): void {
     this.accountService.log_out().subscribe({
       next: () => this.router.navigate(['/']),
-      error: (error) => console.log(error)
+      error: (err) => this.toastr.error(err.statusText)
     });
   }
 }

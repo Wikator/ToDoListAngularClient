@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { Login } from '../_models/login';
+import { Login } from '../core/models/login';
 import { Router } from '@angular/router';
-import { AccountService } from '../_services/account.service';
+import { AccountService } from '../core/services/account.service';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-login',
@@ -9,19 +10,16 @@ import { AccountService } from '../_services/account.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  private accountService = inject(AccountService);
-  private router = inject(Router);
+  private accountService: AccountService = inject(AccountService);
+  private router: Router = inject(Router);
+  private toastr: ToastrService = inject(ToastrService);
 
   model: Login = {} as Login;
 
-  login() {
+  login(): void {
     this.accountService.sign_in(this.model).subscribe({
-      next: () => {
-        this.router.navigate(['/']);
-      },
-      error: error => {
-        console.log(error);
-      }
+      next: () => this.router.navigate(['/']),
+      error: (err) => this.toastr.error(err.error)
     })
   }
 }

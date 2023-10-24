@@ -1,11 +1,11 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { User } from '../_models/user';
-import { Login } from '../_models/login';
+import { User } from '../models/user';
+import { Login } from '../models/login';
 import { map } from 'rxjs/operators';
-import { Register } from '../_models/register';
-import { environment } from "../../environment/environment";
+import { Register } from '../models/register';
+import { environment } from "../../../environment/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +30,7 @@ export class AccountService {
   register(register: Register): Observable<User | null> {
     return this.http.post<User>(this.baseUrl, { "user": register }, { observe: 'response' }).pipe(
       map(response => {
-        const user = this.getUser(response);
+        const user: User | null = this.getUser(response);
         if (user) this.setCurrentUser(user);
         return user;
       })

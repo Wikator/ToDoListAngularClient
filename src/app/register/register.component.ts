@@ -1,8 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { AccountService } from '../_services/account.service';
+import { AccountService } from '../core/services/account.service';
 import { Router } from '@angular/router';
-import { Register } from '../_models/register';
+import { Register } from '../core/models/register';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-register',
@@ -10,9 +11,10 @@ import { Register } from '../_models/register';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  private accountService = inject(AccountService);
-  private fb = inject(FormBuilder);
-  private router = inject(Router);
+  private accountService: AccountService = inject(AccountService);
+  private fb: FormBuilder = inject(FormBuilder);
+  private router: Router = inject(Router);
+  private toastr: ToastrService = inject(ToastrService);
 
   registerForm: FormGroup = new FormGroup({});
   validationErrors: string | null = null;
@@ -41,16 +43,11 @@ export class RegisterComponent implements OnInit {
     };
   }
 
-  register() {
+  register(): void {
     const register: Register = this.registerForm.value;
     this.accountService.register(register).subscribe({
-      next: () => {
-        this.router.navigateByUrl('/');
-      },
-      error: err => {
-        console.log(err)
-        this.validationErrors = err.error.status.message;
-      }
+      next: () => this.router.navigateByUrl('/'),
+      error: (err) => this.toastr.error(err.error)
     })
   }
 }

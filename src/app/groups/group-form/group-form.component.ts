@@ -1,8 +1,6 @@
 import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Group} from "../../_models/group";
-import {GroupService} from "../../_services/group.service";
-import {Router} from "@angular/router";
+import {Group} from "../../core/models/group";
 
 @Component({
   selector: 'app-group-form',
@@ -10,18 +8,18 @@ import {Router} from "@angular/router";
   styleUrls: ['./group-form.component.css']
 })
 export class GroupFormComponent implements OnInit {
-  @Input() buttonText: string = '';
+  @Input() buttonText = '';
   @Input() initialFormData: Group | null = null
   @Output() onSubmit: EventEmitter<Group> = new EventEmitter<Group>();
   private fb: FormBuilder = inject(FormBuilder);
 
   groupForm: FormGroup = new FormGroup({});
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initializeForm();
   }
 
-  protected initializeForm() {
+  protected initializeForm(): void {
     if (this.initialFormData) {
       this.groupForm = this.fb.group({
         id: [this.initialFormData.id],
@@ -36,7 +34,7 @@ export class GroupFormComponent implements OnInit {
   }
 
 
-  onButtonPress() {
+  onButtonPress(): void {
     const group: Group = this.groupForm.value as Group;
     this.onSubmit.emit(group);
   }

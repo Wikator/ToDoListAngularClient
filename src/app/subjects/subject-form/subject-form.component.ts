@@ -1,5 +1,5 @@
 import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
-import {Subject} from "../../_models/subject";
+import {Subject} from "../../core/models/subject";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
@@ -8,7 +8,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   styleUrls: ['./subject-form.component.css']
 })
 export class SubjectFormComponent implements OnInit {
-  @Input() buttonText: string = '';
+  @Input() buttonText = '';
   @Input() initialFormData: Subject | null = null;
   @Output() onSubmit: EventEmitter<Subject> = new EventEmitter<Subject>();
 

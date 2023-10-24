@@ -1,14 +1,15 @@
 import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Task} from "../../_models/task";
-import {Option} from "../../_models/option";
-import {TaskService} from "../../_services/task.service";
-import {DropdownsService} from "../../_services/dropdowns.service";
-import {Category} from "../../_models/category";
-import {Group} from "../../_models/group";
-import {TaskDetails} from "../../_models/task-details";
-import {group} from "@angular/animations";
-import {Subject} from "../../_models/subject";
+import {Task} from "../../core/models/task";
+import {Option} from "../../core/models/option";
+import {Category} from "../../core/models/category";
+import {Group} from "../../core/models/group";
+import {TaskDetails} from "../../core/models/task-details";
+import {Subject} from "../../core/models/subject";
+import {GroupService} from "../../core/services/group.service";
+import {SubjectService} from "../../core/services/subject.service";
+import {CategoryService} from "../../core/services/category.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-task-form',
@@ -21,20 +22,22 @@ export class TaskFormComponent implements OnInit {
   @Output() onSubmit: EventEmitter<Task> = new EventEmitter<Task>()
   taskForm: FormGroup = new FormGroup({});
 
-  private taskService = inject(TaskService);
-  private dropdownsService = inject(DropdownsService);
-  private fb = inject(FormBuilder);
+  private groupService: GroupService = inject(GroupService);
+  private subjectService: SubjectService = inject(SubjectService);
+  private categoryService: CategoryService = inject(CategoryService);
+  private fb: FormBuilder = inject(FormBuilder);
+  private toastr: ToastrService = inject(ToastrService);
 
   categoryOptions: Option[] = [];
   groupOptions: Option[] = [];
   subjectOptions: Option[] = [];
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initializeForm();
     this.getData();
   }
 
-  private initializeForm() {
+  private initializeForm(): void {
     if (this.initialFormData) {
       this.taskForm = this.fb.group({
         id: [this.initialFormData.id],
@@ -58,52 +61,62 @@ export class TaskFormComponent implements OnInit {
     }
   }
 
-  private getData() {
-    this.dropdownsService.getTaskDropdowns().subscribe({
-      next: obj => {
-        this.categoryOptions = obj.categories.map((category: Category) => {
+  private getData(): void {
+    this.categoryService.getCategories().subscribe({
+      next: (categories: Category[]) => {
+        this.categoryOptions = categories.map((category: Category) => {
           return {
             name: category.name,
             value: category.id
           }
         });
-        this.groupOptions = obj.groups.map((group: Group) => {
+      },
+      error: (err) => this.toastr.error(err.statusText)
+    });
+
+    this.groupService.getGroups().subscribe({
+      next: (groups: Group[]) => {
+        this.groupOptions = groups.map((group: Group) => {
           return {
             name: group.name,
             value: group.id
           }
         });
-        this.subjectOptions = obj.subjects.map((subject: Subject) => {
+      },
+      error: (err) => this.toastr.error(err.statusText)
+    });
+
+    this.subjectService.getSubjects().subscribe({
+      next: (subjects: Subject[]) => {
+        this.subjectOptions = subjects.map((subject: Subject) => {
           return {
             name: subject.name,
             value: subject.id
           }
-        })
+        });
       },
-      error: err => {
-        console.log(err)
-      }
+      error: (err) => this.toastr.error(err.statusText)
     });
   }
 
-  onButtonPress() {
+  onButtonPress(): void {
     const task: Task = this.taskForm.value as Task;
     this.onSubmit.emit(task);
   }
 
-  onCategoryChange(e: number) {
+  onCategoryChange(e: number): void {
     this.categoryId?.setValue(e, {
       onlySelf: true,
     });
   }
 
-  onGroupChange(e: number) {
+  onGroupChange(e: number): void {
     this.groupId?.setValue(e, {
       onlySelf: true,
     });
   }
 
-  onSubjectChange(e: number) {
+  onSubjectChange(e: number): void {
     this.subjectId?.setValue(e, {
       onlySelf: true,
     });

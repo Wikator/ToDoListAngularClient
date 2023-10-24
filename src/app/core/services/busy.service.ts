@@ -5,7 +5,7 @@ import {NgxSpinnerService} from "ngx-spinner";
   providedIn: 'root'
 })
 export class BusyService {
-  private busyRequestCount: number = 0;
+  private busyRequestCount = 0;
   private spinnerService: NgxSpinnerService = inject(NgxSpinnerService);
 
   busy(): void {

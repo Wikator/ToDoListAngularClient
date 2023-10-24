@@ -1,8 +1,9 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {Task} from "../../_models/task";
+import {Task} from "../../core/models/task";
 import {ActivatedRoute, Router} from "@angular/router";
-import {TaskDetails} from "../../_models/task-details";
-import {TaskService} from "../../_services/task.service";
+import {TaskDetails} from "../../core/models/task-details";
+import {TaskService} from "../../core/services/task.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-update-task',
@@ -13,10 +14,11 @@ export class UpdateTaskComponent implements OnInit {
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
   private taskService: TaskService = inject(TaskService);
   private router: Router = inject(Router);
+  private toastr: ToastrService = inject(ToastrService);
 
   initialTaskData: TaskDetails | null = null;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
         const id: string | null = params.get('id')
@@ -24,26 +26,19 @@ export class UpdateTaskComponent implements OnInit {
           this.router.navigateByUrl('/groups')
         } else {
           this.taskService.getTask(id).subscribe({
-            next: (task: TaskDetails) => {
-              this.initialTaskData = task;
-            }
-          })
+            next: (task: TaskDetails) => this.initialTaskData = task,
+            error: (err) => this.toastr.error(err.statusText)
+          });
         }
       },
       error: (err) => console.log(err)
     })
   }
 
-  update(task: Task) {
+  update(task: Task): void {
     this.taskService.updateTask(task).subscribe({
-      next: () => {
-        this.router.navigateByUrl('/tasks/my-tasks');
-      },
-      error: err => {
-        console.log(err)
-        // this.validationErrors = [err.error.status.message];
-      }
-    })
+      next: () => this.router.navigateByUrl('/tasks/my-tasks'),
+      error: (err) => this.toastr.error(err.statusText)
+    });
   }
-
 }

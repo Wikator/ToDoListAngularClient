@@ -1,7 +1,8 @@
 import {Component, inject} from '@angular/core';
-import {Group} from "../../_models/group";
-import {GroupService} from "../../_services/group.service";
+import {Group} from "../../core/models/group";
+import {GroupService} from "../../core/services/group.service";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-create-group',
@@ -11,11 +12,12 @@ import {Router} from "@angular/router";
 export class CreateGroupComponent{
   private groupService: GroupService = inject(GroupService);
   private router: Router = inject(Router);
+  private toastr: ToastrService = inject(ToastrService);
 
-  submit(group: Group) {
+  submit(group: Group): void {
     this.groupService.createGroup(group).subscribe({
       next: () => this.router.navigateByUrl('/groups'),
-      error: (error) => console.error(error)
+      error: (err) => this.toastr.error(err.statusText)
     });
   }
 }

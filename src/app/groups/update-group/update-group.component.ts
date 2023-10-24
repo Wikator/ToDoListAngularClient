@@ -1,7 +1,8 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {GroupService} from "../../_services/group.service";
+import {GroupService} from "../../core/services/group.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Group} from "../../_models/group";
+import {Group} from "../../core/models/group";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-update-group',
@@ -12,6 +13,8 @@ export class UpdateGroupComponent implements OnInit{
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute)
   private router: Router = inject(Router);
   private groupService: GroupService = inject(GroupService);
+  private toastr: ToastrService = inject(ToastrService)
+
   initialGroupData: Group | null = null;
 
   ngOnInit() {
@@ -32,7 +35,7 @@ export class UpdateGroupComponent implements OnInit{
   submit(group: Group) {
     this.groupService.updateGroup(group).subscribe({
       next: () => this.router.navigateByUrl('/groups'),
-      error: (error) => console.log(error)
+      error: (err) => this.toastr.error(err.statusText)
     })
   }
 }

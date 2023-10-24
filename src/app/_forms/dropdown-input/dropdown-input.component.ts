@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, Self } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
-import { Option } from 'src/app/_models/option';
+import { Option } from 'src/app/core/models/option';
 
 @Component({
   selector: 'app-dropdown-input',
@@ -10,7 +10,7 @@ import { Option } from 'src/app/_models/option';
 export class DropdownInputComponent implements ControlValueAccessor {
   @Input() options: Option[] = [];
   @Input() label = '';
-  @Output() valueChanged = new EventEmitter<number>();
+  @Output() valueChanged: EventEmitter<number> = new EventEmitter<number>();
 
   constructor(@Self() public ngControl: NgControl) {
     this.ngControl.valueAccessor = this;

@@ -1,8 +1,9 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {CategoryService} from "../../_services/category.service";
-import {Category} from "../../_models/category";
+import {CategoryService} from "../../core/services/category.service";
+import {Category} from "../../core/models/category";
 import {ActivatedRoute, ParamMap, Router} from "@angular/router";
-import {Group} from "../../_models/group";
+import {Group} from "../../core/models/group";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-update-category',
@@ -14,6 +15,8 @@ export class UpdateCategoryComponent implements OnInit {
   private router: Router = inject(Router)
   private activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
+  private toastr: ToastrService = inject(ToastrService);
+
   initialCategoryData: Group | null = null;
 
   ngOnInit(): void {
@@ -24,7 +27,8 @@ export class UpdateCategoryComponent implements OnInit {
           this.router.navigateByUrl('/categories');
         } else {
           this.categoryService.getCategory(id).subscribe({
-            next: (category: Category) => this.initialCategoryData = category
+            next: (category: Category) => this.initialCategoryData = category,
+            error: (err) => this.toastr.error(err.statusText)
           });
         }
       }
@@ -35,7 +39,7 @@ export class UpdateCategoryComponent implements OnInit {
   update(category: Category): void {
     this.categoryService.update(category).subscribe({
       next: () => this.router.navigateByUrl('/categories'),
-      error: (err) => console.log(err)
+      error: (err) => this.toastr.error(err.statusText)
     });
   }
 }
