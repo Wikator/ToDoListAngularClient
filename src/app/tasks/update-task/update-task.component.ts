@@ -1,7 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {Task} from "../../core/models/task";
+import {CreateUpdateTask} from "../../core/models/task/create-update-task";
 import {ActivatedRoute, Router} from "@angular/router";
-import {TaskDetails} from "../../core/models/task-details";
+import {Task} from "../../core/models/task/task";
 import {TaskService} from "../../core/services/task.service";
 import {ToastrService} from "ngx-toastr";
 
@@ -16,7 +16,7 @@ export class UpdateTaskComponent implements OnInit {
   private router: Router = inject(Router);
   private toastr: ToastrService = inject(ToastrService);
 
-  initialTaskData: TaskDetails | null = null;
+  initialTaskData: Task | null = null;
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe({
@@ -26,7 +26,7 @@ export class UpdateTaskComponent implements OnInit {
           this.router.navigateByUrl('/groups')
         } else {
           this.taskService.getTask(id).subscribe({
-            next: (task: TaskDetails) => this.initialTaskData = task,
+            next: (task: Task) => this.initialTaskData = task,
             error: (err) => this.toastr.error(err.statusText)
           });
         }
@@ -35,7 +35,7 @@ export class UpdateTaskComponent implements OnInit {
     })
   }
 
-  update(task: Task): void {
+  update(task: CreateUpdateTask): void {
     this.taskService.updateTask(task).subscribe({
       next: () => this.router.navigateByUrl('/tasks/my-tasks'),
       error: (err) => this.toastr.error(err.statusText)

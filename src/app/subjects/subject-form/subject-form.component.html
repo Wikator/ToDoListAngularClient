@@ -4,6 +4,15 @@
     [formControl]="$any(subjectForm.controls['name'])"
   ></app-text-input>
 
+  <ng-container formArrayName="subjectTimes" *ngIf="subjectTimes">
+    <ng-container *ngFor="let time of subjectTimes.controls; index as i">
+      <ng-container [formGroupName]="i">
+        <label for="time {{i}}">{{groupNames[i]}}</label>
+        <input class="form-control mb-3" id="time {{i}}" formControlName="time" type="time" />
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
   <app-submit-button
     [formGroupValid]="subjectForm.valid"
     [buttonText]="buttonText"

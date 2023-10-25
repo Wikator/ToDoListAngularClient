@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import { Task } from 'src/app/core/models/task';
+import { CreateUpdateTask } from 'src/app/core/models/task/create-update-task';
 import {TaskService} from "../../core/services/task.service";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
@@ -15,7 +15,7 @@ export class CreateTaskComponent {
   private router: Router = inject(Router);
   private toastr: ToastrService = inject(ToastrService);
 
-  create(task: Task): void {
+  create(task: CreateUpdateTask): void {
     this.taskService.createTask(task).subscribe({
       next: () => this.router.navigateByUrl('/tasks/my-tasks'),
       error: err => this.toastr.error(err.statusText)

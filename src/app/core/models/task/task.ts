@@ -1,8 +1,8 @@
-import { Category } from "./category";
-import { Group } from "./group";
-import {Subject} from "./subject";
+import { Category } from "../category";
+import { Group } from "../group";
+import {Subject} from "../subject";
 
-export interface TaskDetails {
+export interface Task {
   id: number;
   name: string;
   description: string | null;

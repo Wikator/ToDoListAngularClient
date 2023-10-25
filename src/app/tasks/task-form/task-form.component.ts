@@ -1,15 +1,16 @@
 import {Component, EventEmitter, inject, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Task} from "../../core/models/task";
+import {CreateUpdateTask} from "../../core/models/task/create-update-task";
 import {Option} from "../../core/models/option";
 import {Category} from "../../core/models/category";
 import {Group} from "../../core/models/group";
-import {TaskDetails} from "../../core/models/task-details";
 import {Subject} from "../../core/models/subject";
 import {GroupService} from "../../core/services/group.service";
 import {SubjectService} from "../../core/services/subject.service";
 import {CategoryService} from "../../core/services/category.service";
 import {ToastrService} from "ngx-toastr";
+import {Task} from "../../core/models/task/task";
+import {SubjectTime} from "../../core/models/subject-time/subject-time";
 
 @Component({
   selector: 'app-task-form',
@@ -18,8 +19,8 @@ import {ToastrService} from "ngx-toastr";
 })
 export class TaskFormComponent implements OnInit {
   @Input() buttonText: string = ''
-  @Input() initialFormData: TaskDetails | null = null;
-  @Output() onSubmit: EventEmitter<Task> = new EventEmitter<Task>()
+  @Input() initialFormData: Task | null = null;
+  @Output() onSubmit: EventEmitter<CreateUpdateTask> = new EventEmitter<CreateUpdateTask>()
   taskForm: FormGroup = new FormGroup({});
 
   private groupService: GroupService = inject(GroupService);
@@ -50,7 +51,6 @@ export class TaskFormComponent implements OnInit {
       })
     } else {
       this.taskForm = this.fb.group({
-        id: [0],
         name: ['', Validators.required],
         description: [null as string | null],
         deadline: [null as Date | null],
@@ -100,7 +100,7 @@ export class TaskFormComponent implements OnInit {
   }
 
   onButtonPress(): void {
-    const task: Task = this.taskForm.value as Task;
+    const task: CreateUpdateTask = this.taskForm.value as CreateUpdateTask;
     this.onSubmit.emit(task);
   }
 

@@ -3,6 +3,7 @@ import {environment} from "../../../environment/environment";
 import {HttpClient} from "@angular/common/http";
 import {Subject} from "../models/subject";
 import {Observable} from "rxjs";
+import {SubjectTime} from "../models/subject-time/subject-time";
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,10 @@ export class SubjectService {
 
   getSubject(id: string | number): Observable<Subject> {
     return this.http.get<Subject>(this.baseUrl + id);
+  }
+
+  getSubjectTimes(id: string | number): Observable<SubjectTime[]> {
+    return this.http.get<SubjectTime[]>(this.baseUrl + id + '/subject_times');
   }
 
   create(subject: Subject): Observable<Subject> {
