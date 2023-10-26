@@ -6,5 +6,5 @@ export interface SubjectTime {
   id: number;
   subject: Subject;
   group: Group;
-  time: Time
+  time: Time | null
 }

@@ -4,10 +4,9 @@ import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {SubjectTime} from "../../core/models/subject-time/subject-time";
 import {SubjectService} from "../../core/services/subject.service";
 import {ToastrService} from "ngx-toastr";
-import {group} from "@angular/animations";
-import {SubjectTimeService} from "../../core/services/subject-time.service";
-import {CreateUpdateTask} from "../../core/models/task/create-update-task";
 import {CreateUpdateSubjectTime} from "../../core/models/subject-time/create-update-subject-time";
+import {GroupService} from "../../core/services/group.service";
+import {Group} from "../../core/models/group";
 
 @Component({
   selector: 'app-subject-form',
@@ -15,14 +14,14 @@ import {CreateUpdateSubjectTime} from "../../core/models/subject-time/create-upd
   styleUrls: ['./subject-form.component.css']
 })
 export class SubjectFormComponent implements OnInit {
-  @Input() buttonText = '';
+  @Input() buttonText: string = '';
   @Input() initialFormData: Subject | null = null;
-  @Output() onSubmit: EventEmitter<Subject> = new EventEmitter<Subject>();
+  @Output() onSubmit: EventEmitter<{subject: Subject, subjectTimes: CreateUpdateSubjectTime[]}> = new EventEmitter<{subject: Subject, subjectTimes: CreateUpdateSubjectTime[]}>();
 
   private fb: FormBuilder = inject(FormBuilder);
   private toastr: ToastrService = inject(ToastrService)
   private subjectService: SubjectService = inject(SubjectService);
-  private subjectTimeService: SubjectTimeService = inject(SubjectTimeService);
+  private groupsService: GroupService = inject(GroupService)
 
   subjectForm: FormGroup = new FormGroup({});
   groupNames: string[] = [];
@@ -32,29 +31,38 @@ export class SubjectFormComponent implements OnInit {
   }
 
   private initializeForm(): void {
+    this.subjectForm = this.fb.group({
+      id: [this.initialFormData ? this.initialFormData.id : 0],
+      name: [this.initialFormData ? this.initialFormData.name : '', Validators.required]
+    });
+
     if (this.initialFormData) {
       this.subjectService.getSubjectTimes(this.initialFormData.id).subscribe({
         next: (subjectTimes: SubjectTime[]) => {
-          this.groupNames = subjectTimes.map((st) => st.group.name);
-          const formArray: FormArray = this.fb.array(subjectTimes.map(st => this.fb.group({
+          this.groupNames = subjectTimes.map((st: SubjectTime) => st.group.name);
+          const formArray: FormArray = this.fb.array(subjectTimes.map((st: SubjectTime) => this.fb.group({
             id: [st.id],
-            time: [st.time, Validators.required]
+            time: [st.time],
+            group_id: [st.group.id]
           })));
           this.subjectForm.addControl('subjectTimes', formArray);
           console.log(this.subjectForm.controls);
         },
         error: (err) => this.toastr.error(err.statusText)
       });
-
-      this.subjectForm = this.fb.group({
-        id: [this.initialFormData.id],
-        name: [this.initialFormData.name, Validators.required]
-      });
     } else {
-      this.subjectForm = this.fb.group({
-        id: [0],
-        name: ['', Validators.required]
-      });
+      this.groupsService.getGroups().subscribe({
+        next: (groups: Group[]) => {
+          this.groupNames = groups.map((g: Group) => g.name);
+          const formArray: FormArray = this.fb.array(groups.map((g: Group) => this.fb.group({
+            id: [0],
+            time: [null],
+            group_id: [g.id]
+          })));
+          this.subjectForm.addControl('subjectTimes', formArray);
+          console.log(this.subjectForm.controls);
+        }
+      })
     }
   }
 
@@ -64,15 +72,13 @@ export class SubjectFormComponent implements OnInit {
 
   onButtonPress(): void {
     const subject: Subject = this.subjectForm.value as Subject;
-    const subjectTimes = this.subjectForm.controls['subjectTimes'].value as CreateUpdateSubjectTime[];
-    subjectTimes.forEach(s => {
-      this.subjectTimeService.updateSubjectTime(s).subscribe({
-        error: (err) => this.toastr.error(err.statusText)
-      })
-    })
-    this.onSubmit.emit(subject);
+    const subjectTimes: CreateUpdateSubjectTime[] = this.subjectForm.get('subjectTimes')?.value.map((s: any) => {
+      return {
+        id: s.id,
+        group_id: s.group_id,
+        time: s.time
+      } as CreateUpdateSubjectTime;
+    });
+    this.onSubmit.emit({subject: subject, subjectTimes: subjectTimes});
   }
-
-  protected readonly group = group;
-  protected readonly Object = Object;
 }
